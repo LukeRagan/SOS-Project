@@ -1,0 +1,94 @@
+package guiguy;
+import javax.swing.*;
+import java.awt.*;
+
+public class SOSProjectSprint1 {
+
+	public static void main(String[] args) {
+        JFrame frame = new JFrame("SOS Game");
+
+        JPanel leftPanel = new JPanel();
+        leftPanel.setLayout(new BoxLayout(leftPanel, BoxLayout.Y_AXIS)); 
+        
+      
+        JCheckBox checkBox = new JCheckBox("Record??");
+
+        
+        leftPanel.add(checkBox);
+
+        //makes right panel and sets border
+        JPanel rightPanel = new JPanel();
+        rightPanel.setLayout(new BorderLayout());
+
+       // creates label for the title of the game
+        JLabel label = new JLabel("SOS Game");
+        label.setHorizontalAlignment(JLabel.CENTER); 
+        
+      
+        rightPanel.add(label, BorderLayout.NORTH);
+       // making panel for radio buttons on the right of the screen
+        JPanel radioButtonsPanel = new JPanel();
+        radioButtonsPanel.setLayout(new BoxLayout(radioButtonsPanel, BoxLayout.Y_AXIS));
+        
+        ButtonGroup buttonGroup = new ButtonGroup();
+        JRadioButton radioButton1 = new JRadioButton("Human");
+        JRadioButton radioButton2 = new JRadioButton("Computer");
+        
+        buttonGroup.add(radioButton1);
+        buttonGroup.add(radioButton2);
+          
+        radioButtonsPanel.add(Box.createVerticalGlue()); // makes the buttons stay in the middle of the right side of the screen
+        radioButtonsPanel.add(radioButton1);
+        radioButtonsPanel.add(radioButton2);
+        radioButtonsPanel.add(Box.createVerticalGlue());
+        
+        
+        JPanel gameBoardPanel = new JPanel(new GridBagLayout());
+        // making game board size
+        int gameBoardSize = 300; 
+        gameBoardPanel.setPreferredSize(new Dimension(gameBoardSize, gameBoardSize));
+        
+        int cellSize = gameBoardSize /7;
+        // making the game board a set size
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.BOTH;
+        
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                JButton button = new JButton();
+                button.setPreferredSize(new Dimension(cellSize, cellSize));
+                
+                gbc.gridx = i;
+                gbc.gridy = j;
+             
+                gameBoardPanel.add(button, gbc);
+            }
+        }
+
+        rightPanel.add(radioButtonsPanel, BorderLayout.CENTER); 
+        rightPanel.add(gameBoardPanel, BorderLayout.CENTER);
+        
+        
+        // makes the panels move to the respective side of the screen
+        JPanel mainPanel = new JPanel(new BorderLayout());
+        mainPanel.add(leftPanel, BorderLayout.WEST); 
+        mainPanel.add(rightPanel, BorderLayout.CENTER);
+        mainPanel.add(radioButtonsPanel, BorderLayout.EAST);
+        
+        JPanel bottomLeftPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        bottomLeftPanel.add(checkBox);
+        
+        
+        JPanel containerPanel = new JPanel(new BorderLayout());
+        containerPanel.add(mainPanel, BorderLayout.CENTER);
+        containerPanel.add(bottomLeftPanel, BorderLayout.SOUTH);
+        
+        frame.getContentPane().add(containerPanel);
+
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setSize(400, 400);
+
+        frame.setVisible(true);
+    }
+}
